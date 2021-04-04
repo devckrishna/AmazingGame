@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         jumpInput=Input.GetAxis("Vertical");
         if(jumpInput > 0 && timesJumped < jumpsAllowed && previousJumpInput==0){
             rb.velocity=new Vector2(rb.velocity.x,jumpForce);
-            timesJumped+=1;
+            timesJumped++;
         }
         previousJumpInput=jumpInput;
     }
@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.CompareTag("Ground")){
             timesJumped=0;
+        }else if(other.gameObject.CompareTag("Coin")){
+            TextManager.instance.IncreaseScore();
+            Destroy(other.gameObject);
         }
     }
 

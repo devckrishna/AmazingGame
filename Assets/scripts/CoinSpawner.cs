@@ -14,13 +14,18 @@ public class CoinSpawner : MonoBehaviour
         timeToNextSpawn=timeBetweenSpawns;
     }
 
+    void Spawn(){
+        for(int i=0;i<30;i++){
+            Instantiate(prefab,new Vector2(-10+0.7f*i,20),Quaternion.identity);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         timeToNextSpawn-=Time.deltaTime;
         if(timeToNextSpawn <= 0.0f){
-            
-            Debug.Log("Time is up!!!");
+            Spawn();            
             timeToNextSpawn=timeBetweenSpawns;
         }
         
